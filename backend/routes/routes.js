@@ -1,5 +1,5 @@
 import express from "express";
-const routes = express.Router();
+const route = express.Router();
 
 import getNews from "../controllers/getNews.js";
 import getNewByID from "../controllers/getNewById.js";
@@ -14,4 +14,4 @@ route.patch("/:id", updateNewByID);
 
 route.post("/", createNew);
 
-export default routes;
+export default route;
