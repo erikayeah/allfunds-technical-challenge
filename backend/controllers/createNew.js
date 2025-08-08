@@ -4,7 +4,6 @@ const createNew = async (req, res) => {
   try {
     const data = await newsModel.create(req.body);
     res.status(201).json(data);
-    // CONTINUE
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
