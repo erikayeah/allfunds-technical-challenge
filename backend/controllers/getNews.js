@@ -1,9 +1,11 @@
+import newsModel from "../models/newsModels.js";
+
 const getNews = async (req, res) => {
   try {
-    res.status(201).json("get all news ok");
-    // CONTINUE
+    const data = await newsModel.getAll();
+    res.status(201).json(data);
   } catch (error) {
-    return res.status(500).send(error);
+    return res.status(500).json({ error: error.message });
   }
 };
 
