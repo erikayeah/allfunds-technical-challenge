@@ -1,13 +1,18 @@
+import newsModel from "../models/newsModels.js";
+
 const updateNewByID = async (req, res) => {
   try {
     const { id } = req.params;
-    res.status(201).json("update new");
+    const data = await newsModel.updateNewByID(id, req.body);
+    console.log(`Updating news with ID: ${id}`);
+
+    res.status(201).json(data);
     if (!id) {
       return res.status(400).send("News ID is required");
       // CONTINUE
     }
   } catch (error) {
-    return res.status(500).send(error);
+    return res.status(500).json({ error: error.message });
   }
 };
 
