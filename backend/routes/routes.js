@@ -5,13 +5,12 @@ import getNews from "../controllers/getNews.js";
 import getByID from "../controllers/getNewById.js";
 import createNew from "../controllers/createNew.js";
 import updateNewByID from "../controllers/updateNewByID.js";
+import deleteNewsByID from "../controllers/deleteNews.js";
 
 route.get("/", getNews);
-
-route.get("/:id", getByID);
-
-route.patch("/:id", updateNewByID);
-
 route.post("/", createNew);
+route.get("/:id", getByID);
+route.patch("/:id", updateNewByID);
+route.delete("/:id", deleteNewsByID);
 
 export default route;

@@ -17,6 +17,11 @@ class NewsModel {
     return await news.findOne({ _id: new ObjectId(id) });
   }
 
+  async deleteById(id) {
+    const news = dbClient.db.collection("news");
+    return await news.deleteOne({ _id: new ObjectId(id) });
+  }
+
   async updateNewByID(id, updatedData) {
     const news = dbClient.db.collection("news");
     return await news.updateOne(
