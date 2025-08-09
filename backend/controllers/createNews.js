@@ -1,6 +1,6 @@
 import newsModel from "../models/newsModels.js";
 
-const createNew = async (req, res) => {
+const createNews = async (req, res) => {
   try {
     const data = await newsModel.create(req.body);
     res.status(201).json(data);
@@ -9,4 +9,4 @@ const createNew = async (req, res) => {
   }
 };
 
-export default createNew;
+export default createNews;

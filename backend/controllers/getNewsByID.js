@@ -1,0 +1,18 @@
+import newsModel from "../models/newsModels.js";
+
+const getNewsByID = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(`Fetching news with ID: ${id}`);
+    const data = await newsModel.getById(id);
+    res.status(201).json(data);
+
+    if (!id) {
+      return res.status(400).send("News ID is required");
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export default getNewsByID;

@@ -1,18 +1,17 @@
 import { MongoClient } from "mongodb";
 import "dotenv/config";
 
-const { user_db, password_db, server_db, name_db } = process.env;
-
+const { USER_DB, PASSWORD_DB, SERVER_DB, NAME_DB } = process.env;
 class dbClient {
   constructor() {
-    const uri = `mongodb+srv://${user_db}:${password_db}@${server_db}/?retryWrites=true&w=majority&appName=allfundsTC`;
+    const uri = `mongodb+srv://${USER_DB}:${PASSWORD_DB}@${SERVER_DB}/?retryWrites=true&w=majority&appName=allfundsTC`;
     this.client = new MongoClient(uri);
     this.connectDB();
   }
   async connectDB() {
     try {
       await this.client.connect();
-      this.db = this.client.db(name_db);
+      this.db = this.client.db(NAME_DB);
       console.log("Connected to MongoDB");
     } catch (error) {
       console.error("Error connecting to MongoDB:", error);
