@@ -10,7 +10,7 @@ const { FRONTEND_ORIGIN } = process.env;
 app.use(
   cors({
     origin: FRONTEND_ORIGIN,
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );

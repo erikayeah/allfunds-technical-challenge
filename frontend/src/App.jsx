@@ -3,7 +3,7 @@ import "./App.css";
 
 //components
 import Home from "./views/Home";
-import Archived from "./views/archived";
+import ArchivedNews from "./views/ArchivedNews";
 
 //dependences
 import { useState } from "react";
@@ -14,7 +14,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/archived" element={<Archived />} />
+        <Route path="/archived" element={<ArchivedNews />} />
       </Routes>
     </>
   );

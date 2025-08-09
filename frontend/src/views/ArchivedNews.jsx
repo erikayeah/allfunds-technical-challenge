@@ -4,7 +4,7 @@ import NavBar from "../components/navBar/NavBar";
 import NewsList from "../components/newsList/NewsList";
 import axios from "axios";
 
-const Home = () => {
+const ArchivedNews = () => {
   const API_URL = "http://localhost:5100/news";
 
   const [loading, setLoading] = useState(true);
@@ -13,10 +13,9 @@ const Home = () => {
   const getAllNews = async () => {
     try {
       const response = await axios.get(`${API_URL}/`);
-      const filteredNews = response.data.filter((news) => !news.archiveDate);
-
+      const filteredNews = response.data.filter((news) => news.archiveDate);
       const sortedNews = filteredNews.sort(
-        (a, b) => new Date(b.date) - new Date(a.date)
+        (a, b) => new Date(b.archiveDate) - new Date(a.archiveDate)
       );
       setAllNews(sortedNews);
       if (loading) {
@@ -27,11 +26,9 @@ const Home = () => {
     }
   };
 
-  const buttonArchive = async (id, date) => {
+  const buttonDelete = async (id, date) => {
     try {
-      await axios.patch(`${API_URL}/${id}`, {
-        archiveDate: new Date().toISOString(),
-      });
+      await axios.delete(`${API_URL}/${id}`);
       getAllNews();
     } catch (error) {
       console.error("Error archiving news", error);
@@ -40,7 +37,7 @@ const Home = () => {
 
   useEffect(() => {
     getAllNews();
-    const interval = setInterval(getAllNews, 10000);
+    const interval = setInterval(getAllNews, 5000);
     return () => {
       clearInterval(interval);
     };
@@ -53,11 +50,11 @@ const Home = () => {
       ) : (
         <>
           <NavBar />
-          <NewsList allNewsList={allNewsList} buttonArchive={buttonArchive} />
+          <NewsList allNewsList={allNewsList} buttonDelete={buttonDelete} />
         </>
       )}
     </div>
   );
 };
 
-export default Home;
+export default ArchivedNews;
