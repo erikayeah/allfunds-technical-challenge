@@ -1,12 +1,22 @@
-import Card from "../card/Card";
+import NewsCard from "../newsCard/NewsCArd";
 
-const NewsList = () => {
-  return (
-    <div>
-      {" "}
-      <h1>NEWS LIST</h1>
-    </div>
-  );
+const NewsList = ({ allNewsList, buttonArchive, buttonDelete }) => {
+  const renderNews = () => {
+    if (!allNewsList || allNewsList.length === 0) {
+      return <p> Oops, there are no news to show </p>;
+    }
+
+    return allNewsList.map((news, index) => (
+      <NewsCard
+        key={index}
+        news={news}
+        buttonArchive={buttonArchive}
+        buttonDelete={buttonDelete}
+      />
+    ));
+  };
+
+  return <div>{renderNews()}</div>;
 };
 
 export default NewsList;
