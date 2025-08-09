@@ -2,9 +2,9 @@ import dbClient from "../config/dbClient.js";
 import { ObjectId } from "mongodb";
 
 class NewsModel {
-  async create(newItem) {
+  async create(newsItem) {
     const news = dbClient.db.collection("news");
-    return await news.insertOne(newItem);
+    return await news.insertOne(newsItem);
   }
 
   async getAll() {
@@ -22,7 +22,7 @@ class NewsModel {
     return await news.deleteOne({ _id: new ObjectId(id) });
   }
 
-  async updateNewByID(id, updatedData) {
+  async updateByID(id, updatedData) {
     const news = dbClient.db.collection("news");
     return await news.updateOne(
       { _id: new ObjectId(id) },
