@@ -5,7 +5,7 @@ import NavBar from "../components/navBar/NavBar";
 import axios from "axios";
 
 const Home = () => {
-  const API_URL = "http://localhost:5100";
+  const API_URL = "http://localhost:5100/news";
 
   const [loading, setLoading] = useState(true);
   const [newsList, setNews] = useState([]);
