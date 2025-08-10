@@ -8,7 +8,6 @@ const updateNewsByID = async (req, res) => {
       return res.status(400).send("News ID is required");
     }
     const data = await newsModel.updateByID(id, req.body);
-    console.log(`Updating news with ID: ${id}`);
 
     res.status(201).json(data);
   } catch (error) {
