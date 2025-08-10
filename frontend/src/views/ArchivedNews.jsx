@@ -27,9 +27,9 @@ const ArchivedNews = () => {
     }
   };
 
-  const buttonDelete = async (id, date) => {
+  const buttonRemove = async (id, date) => {
     try {
-      await axios.delete(`${API_URL}/${id}`);
+      await axios.delete(`${API_URL}/remove/${id}`);
       getAllNews();
     } catch (error) {
       console.error("Error archiving news", error);
@@ -48,7 +48,7 @@ const ArchivedNews = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         try {
-          buttonDelete(id);
+          buttonRemove(id);
           Swal.fire({
             title: "Archived!",
             text: "News has been removed.",
