@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import Loading from "../components/loading/Loading";
 import NavBar from "../components/navBar/NavBar";
 import NewsList from "../components/newsList/NewsList";
@@ -35,6 +36,35 @@ const ArchivedNews = () => {
     }
   };
 
+  const confirmRemove = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, remove it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          buttonDelete(id);
+          Swal.fire({
+            title: "Archived!",
+            text: "News has been removed.",
+            icon: "success",
+          });
+        } catch (error) {
+          Swal.fire({
+            title: "Error",
+            text: "Could not remove.",
+            icon: "error",
+          });
+        }
+      }
+    });
+  };
+
   useEffect(() => {
     getAllNews();
     const interval = setInterval(getAllNews, 5000);
@@ -50,7 +80,7 @@ const ArchivedNews = () => {
       ) : (
         <>
           <NavBar />
-          <NewsList allNewsList={allNewsList} buttonDelete={buttonDelete} />
+          <NewsList allNewsList={allNewsList} confirmRemove={confirmRemove} />
         </>
       )}
     </div>

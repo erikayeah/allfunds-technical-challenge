@@ -1,17 +1,17 @@
 import NewsCard from "../newsCard/NewsCArd";
 
-const NewsList = ({ allNewsList, buttonArchive, buttonDelete }) => {
+const NewsList = ({ allNewsList, confirmArchive, confirmRemove }) => {
   const renderNews = () => {
     if (!allNewsList || allNewsList.length === 0) {
-      return <p> Oops, there are no news to show </p>;
+      return <p> Sorry! there is no news to show </p>;
     }
 
     return allNewsList.map((news, index) => (
       <NewsCard
         key={index}
         news={news}
-        buttonArchive={buttonArchive}
-        buttonDelete={buttonDelete}
+        confirmArchive={confirmArchive}
+        confirmRemove={confirmRemove}
       />
     ));
   };
