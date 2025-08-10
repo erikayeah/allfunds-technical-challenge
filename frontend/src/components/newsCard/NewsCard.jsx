@@ -2,7 +2,7 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import style from "./NewsCard.module.css";
 
-const NewsCard = ({ news, buttonArchive, buttonDelete }) => {
+const NewsCard = ({ news, confirmArchive, confirmRemove }) => {
   const { title, description, date, content, author, archiveDate, _id } = news;
   const dateFormatted = new Date(date).toLocaleDateString("en-GB");
 
@@ -20,12 +20,15 @@ const NewsCard = ({ news, buttonArchive, buttonDelete }) => {
         </Card.Body>
         <Card.Body className={style.buttonContainer}>
           {!archiveDate && (
-            <button className={style.button} onClick={() => buttonArchive(_id)}>
+            <button
+              className={style.button}
+              onClick={() => confirmArchive(_id)}
+            >
               Archive
             </button>
           )}
           {archiveDate && (
-            <button className={style.button} onClick={() => buttonDelete(_id)}>
+            <button className={style.button} onClick={() => confirmRemove(_id)}>
               {" "}
               Remove{" "}
             </button>

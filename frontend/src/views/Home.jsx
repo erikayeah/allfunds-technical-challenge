@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import Loading from "../components/loading/Loading";
 import NavBar from "../components/navBar/NavBar";
 import NewsList from "../components/newsList/NewsList";
@@ -27,7 +28,7 @@ const Home = () => {
     }
   };
 
-  const buttonArchive = async (id, date) => {
+  const buttonArchive = async (id) => {
     try {
       await axios.patch(`${API_URL}/${id}`, {
         archiveDate: new Date().toISOString(),
@@ -36,6 +37,35 @@ const Home = () => {
     } catch (error) {
       console.error("Error archiving news", error);
     }
+  };
+
+  const confirmArchive = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, archive it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          buttonArchive(id);
+          Swal.fire({
+            title: "Archived!",
+            text: "News has been archived.",
+            icon: "success",
+          });
+        } catch (error) {
+          Swal.fire({
+            title: "Error",
+            text: "Could not archive.",
+            icon: "error",
+          });
+        }
+      }
+    });
   };
 
   useEffect(() => {
@@ -53,7 +83,7 @@ const Home = () => {
       ) : (
         <>
           <NavBar />
-          <NewsList allNewsList={allNewsList} buttonArchive={buttonArchive} />
+          <NewsList allNewsList={allNewsList} confirmArchive={confirmArchive} />
         </>
       )}
     </div>
