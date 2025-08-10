@@ -2,7 +2,20 @@ import newsModel from "../models/newsModels.js";
 
 const createNews = async (req, res) => {
   try {
-    const data = await newsModel.create(req.body);
+    const { title, description, content, author } = req.body;
+    if (!title || !description || !content || !author) {
+      return res.status(400).send("All fields are required");
+    }
+
+    const newNews = {
+      title,
+      description,
+      date: new Date().toISOString(),
+      content,
+      author,
+    };
+
+    const data = await newsModel.create(newNews);
     res.status(201).json(data);
   } catch (error) {
     return res.status(500).json({ error: error.message });
