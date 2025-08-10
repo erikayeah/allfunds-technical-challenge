@@ -15,7 +15,7 @@ const NewsCard = ({ news, confirmArchive, confirmRemove }) => {
 
           <Card.Text className={style.content}>{content}</Card.Text>
           <Card.Text className={style.author}>
-            Publisded by {author} on {dateFormatted}{" "}
+            Published by {author} on {dateFormatted}{" "}
           </Card.Text>
         </Card.Body>
         <Card.Body className={style.buttonContainer}>
