@@ -11,17 +11,17 @@ const NavBar = () => {
       <Navbar expand="lg" className={style.container}>
         <Container>
           <Navbar.Brand>
-            <a href="https://allfunds.com/es/blog/" target="_blank">
+            <a href="https://allfunds.com/es/contact/" target="_blank">
               <img src={logo} className={style.logo} />
             </a>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link as={Link} to="/">
+              <Nav.Link className={style.button} as={Link} to="/news">
                 News
               </Nav.Link>
-              <Nav.Link as={Link} to="/archived">
+              <Nav.Link className={style.button} as={Link} to="/archived">
                 Archived News
               </Nav.Link>
             </Nav>
