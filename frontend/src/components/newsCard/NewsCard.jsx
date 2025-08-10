@@ -1,12 +1,10 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
-import style from "./NewsCard.module.css"; // Assuming you have a CSS module for styles
+import style from "./NewsCard.module.css";
 
 const NewsCard = ({ news, buttonArchive, buttonDelete }) => {
-  console.log("NewsCard props:", news);
-
   const { title, description, date, content, author, archiveDate, _id } = news;
+  const dateFormatted = new Date(date).toLocaleDateString("en-GB");
 
   return (
     <div>
@@ -14,11 +12,10 @@ const NewsCard = ({ news, buttonArchive, buttonDelete }) => {
         <Card.Body>
           <Card.Title className={style.title}>{title}</Card.Title>
           <Card.Text className={style.description}>{description}</Card.Text>
-          <Card.Text className="list-group-flush">
-            <Card.Text className={style.content}>{content}</Card.Text>
-            <Card.Text className={style.author}>
-              Publisded by {author} on {date}{" "}
-            </Card.Text>
+
+          <Card.Text className={style.content}>{content}</Card.Text>
+          <Card.Text className={style.author}>
+            Publisded by {author} on {dateFormatted}{" "}
           </Card.Text>
         </Card.Body>
         <Card.Body className={style.buttonContainer}>
