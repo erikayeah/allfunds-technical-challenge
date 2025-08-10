@@ -6,9 +6,11 @@ import getByID from "../controllers/getNewsByID.js";
 import createNews from "../controllers/createNews.js";
 import updateNewsByID from "../controllers/updateNewsByID.js";
 import deleteNewsByID from "../controllers/deleteNews.js";
+import removeNewsByID from "../controllers/removeNewsByID.js";
 
 route.get("/", getNews);
 route.post("/", createNews);
+route.delete("/remove/:id", removeNewsByID);
 route.get("/:id", getByID);
 route.patch("/:id", updateNewsByID);
 route.delete("/:id", deleteNewsByID);

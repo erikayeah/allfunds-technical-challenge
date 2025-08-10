@@ -3,7 +3,6 @@ import newsModel from "../models/newsModels.js";
 const getNewsByID = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(`Fetching news with ID: ${id}`);
     const data = await newsModel.getById(id);
     res.status(201).json(data);
 
