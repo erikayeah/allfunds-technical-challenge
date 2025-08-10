@@ -29,6 +29,15 @@ class NewsModel {
       { $set: updatedData }
     );
   }
+
+  async removeByID(id) {
+    const newsToArchive = await dbClient.db
+      .collection("news")
+      .findOne({ _id: new ObjectId(id) });
+
+    await dbClient.db.collection("archiveNews").insertOne(newsToArchive);
+    return await this.deleteById(id);
+  }
 }
 
 export default new NewsModel();
