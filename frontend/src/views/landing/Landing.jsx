@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./Landing.module.css";
-import logo from "../../../public/landing.png";
+import logo from "./landing.png";
 
 const Landing = () => {
   const navigate = useNavigate();
