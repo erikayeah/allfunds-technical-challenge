@@ -73,7 +73,7 @@ const Home = () => {
     const sorted = [...allNewsList].sort((a, b) => {
       const dateA = new Date(a.date);
       const dateB = new Date(b.date);
-      return newOrder === "asc" ? dateA - dateB : dateB - dateA;
+      return newOrder === "ascending" ? dateA - dateB : dateB - dateA;
     });
     setAllNews(sorted);
   };
@@ -98,8 +98,8 @@ const Home = () => {
               onChange={(event) => handleSortNewstOldest(event.target.value)}
               className="form-select w-auto my-3 d-flex justify-content-end me-5 my-1 py-0"
             >
-              <option value="desc">Newest first</option>
-              <option value="asc">Oldest first</option>
+              <option value="descending">Newest first</option>
+              <option value="ascending">Oldest first</option>
             </select>
           </div>
           <NewsList allNewsList={allNewsList} confirmArchive={confirmArchive} />
