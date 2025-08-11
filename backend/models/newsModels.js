@@ -35,7 +35,7 @@ class NewsModel {
       .collection("news")
       .findOne({ _id: new ObjectId(id) });
 
-    await dbClient.db.collection("archiveNews").insertOne(newsToArchive);
+    await dbClient.db.collection("removeNews").insertOne(newsToArchive);
     return await this.deleteById(id);
   }
 }
