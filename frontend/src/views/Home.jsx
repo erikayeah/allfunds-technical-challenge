@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Swal from "sweetalert2";
 import Loading from "../components/loading/Loading";
 import NavBar from "../components/navBar/NavBar";
@@ -68,6 +69,15 @@ const Home = () => {
     });
   };
 
+  const handleSortNewstOldest = (newOrder) => {
+    const sorted = [...allNewsList].sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return newOrder === "asc" ? dateA - dateB : dateB - dateA;
+    });
+    setAllNews(sorted);
+  };
+
   useEffect(() => {
     getAllNews();
     const interval = setInterval(getAllNews, 10000);
@@ -83,6 +93,15 @@ const Home = () => {
       ) : (
         <>
           <NavBar />
+          <div className="d-flex justify-content-end">
+            <select
+              onChange={(event) => handleSortNewstOldest(event.target.value)}
+              className="form-select w-auto my-3 d-flex justify-content-end me-5 my-1 py-0"
+            >
+              <option value="desc">Newest first</option>
+              <option value="asc">Oldest first</option>
+            </select>
+          </div>
           <NewsList allNewsList={allNewsList} confirmArchive={confirmArchive} />
         </>
       )}
