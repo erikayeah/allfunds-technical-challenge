@@ -9,7 +9,7 @@ const { FRONTEND_ORIGIN } = process.env;
 //Middlewares
 app.use(
   cors({
-    origin: FRONTEND_ORIGIN,
+    origin: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
