@@ -6,13 +6,11 @@ import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/news" element={<HomePage type="active" />} />
-        <Route path="/archived" element={<HomePage type="archived" />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/news" element={<HomePage type="active" />} />
+      <Route path="/archived" element={<HomePage type="archived" />} />
+    </Routes>
   );
 }
 

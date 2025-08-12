@@ -1,4 +1,5 @@
 import newsModel from "../models/newsModels.js";
+import { io } from "../index.js";
 
 const createNews = async (req, res) => {
   try {
@@ -16,6 +17,8 @@ const createNews = async (req, res) => {
     };
 
     const data = await newsModel.create(newNews);
+    io.emit("insertOne", newNews);
+
     res.status(201).json(data);
   } catch (error) {
     return res.status(500).json({ error: error.message });

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { io } from "socket.io-client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Swal from "sweetalert2";
 import Loading from "../../components/loading/Loading";
@@ -8,10 +9,11 @@ import NewsList from "../../components/newsList/NewsList";
 import axios from "axios";
 
 const HomePage = ({ type }) => {
-  const API_URL = "http://localhost:5100/news";
+  const API_URL = `${import.meta.env.VITE_BACKEND_PORT}/news`;
+  console.log("BACKEND URL:", API_URL);
 
   const [loading, setLoading] = useState(true);
-  const [allNewsList, setAllNews] = useState([]);
+  const [allNewsList, setAllNewsList] = useState([]);
 
   const getAllNews = async () => {
     try {
@@ -27,7 +29,7 @@ const HomePage = ({ type }) => {
             : new Date(b.archiveDate) - new Date(a.archiveDate)
         );
 
-      setAllNews(filteredAndSortedNews);
+      setAllNewsList(filteredAndSortedNews);
 
       if (loading) {
         setLoading(false);
@@ -37,14 +39,14 @@ const HomePage = ({ type }) => {
     }
   };
 
-  // const handleSortNewstOldest = (newOrder) => {
-  //   const sortedSelected = [...allNewsList].sort((a, b) => {
-  //     const dateA = new Date(a.date);
-  //     const dateB = new Date(b.date);
-  //     return newOrder === "ascending" ? dateA - dateB : dateB - dateA;
-  //   });
-  //   setAllNews(sortedSelected);
-  // };
+  const handleSortNewstOldest = (newOrder) => {
+    const sortedSelected = [...allNewsList].sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return newOrder === "ascending" ? dateA - dateB : dateB - dateA;
+    });
+    setAllNewsList(sortedSelected);
+  };
 
   const buttonArchive = async (id) => {
     try {
@@ -126,9 +128,35 @@ const HomePage = ({ type }) => {
 
   useEffect(() => {
     getAllNews();
-    const interval = setInterval(getAllNews, 10000);
+  }, [type]);
+
+  useEffect(() => {
+    const socket = io(import.meta.env.VITE_BACKEND_PORT);
+
+    socket.on("connect", () => {
+      console.log(" connected to backend", socket.id);
+    });
+
+    socket.on("insertOne", (news) => {
+      const shouldInclude =
+        (type === "active" && !news.archiveDate) ||
+        (type === "archived" && news.archiveDate);
+
+      if (shouldInclude) {
+        setAllNewsList((prevNews) => [news, ...prevNews]);
+      }
+    });
+
+    socket.on("insertMany", (newsList) => {
+      const filteredNews = newsList.filter((news) =>
+        type === "active" ? !news.archiveDate : news.archiveDate
+      );
+
+      setAllNewsList((prevNews) => [...filteredNews, ...prevNews]);
+    });
+
     return () => {
-      clearInterval(interval);
+      socket.disconnect();
     };
   }, [type]);
 
@@ -140,15 +168,16 @@ const HomePage = ({ type }) => {
         <>
           <NavBar />
           <div className="d-flex justify-content-end">
-            {/* <select
+            <select
               defaultValue="descending"
               onChange={(event) => handleSortNewstOldest(event.target.value)}
               className="form-select w-auto my-3 d-flex justify-content-end me-5 my-1 py-0"
             >
               <option value="descending">Newest first</option>
               <option value="ascending">Oldest first</option>
-            </select> */}
+            </select>
           </div>
+
           <NewsList
             allNewsList={allNewsList}
             confirmArchive={confirmArchive}

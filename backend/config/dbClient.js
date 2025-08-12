@@ -30,8 +30,7 @@ class dbClient {
               },
               date: {
                 bsonType: "string",
-                description:
-                  "'date' is required as astring because toISOString",
+                description: "'date' is required as string because toISOString",
               },
               content: {
                 bsonType: "string",
@@ -45,9 +44,8 @@ class dbClient {
           },
         },
       });
-      console.log("Connected to MongoDB");
     } catch (error) {
-      console.error("Error connecting to MongoDB:", error);
+      console.error("Error connecting to MongoDB:", error.message);
     }
   }
 }

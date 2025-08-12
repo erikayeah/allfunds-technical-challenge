@@ -10,7 +10,7 @@ const removeNewsByID = async (req, res) => {
 
     const data = await newsModel.removeByID(id);
 
-    res.status(200).json(data);
+    res.status(204).json(data);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

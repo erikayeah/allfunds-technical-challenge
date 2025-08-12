@@ -4,7 +4,7 @@ const getNewsByID = async (req, res) => {
   try {
     const { id } = req.params;
     const data = await newsModel.getById(id);
-    res.status(201).json(data);
+    res.status(200).json(data);
 
     if (!id) {
       return res.status(400).send("News ID is required");
