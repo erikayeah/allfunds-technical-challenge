@@ -37,14 +37,14 @@ const HomePage = ({ type }) => {
     }
   };
 
-  const handleSortNewstOldest = (newOrder) => {
-    const sortedSelected = [...allNewsList].sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-      return newOrder === "ascending" ? dateA - dateB : dateB - dateA;
-    });
-    setAllNews(sortedSelected);
-  };
+  // const handleSortNewstOldest = (newOrder) => {
+  //   const sortedSelected = [...allNewsList].sort((a, b) => {
+  //     const dateA = new Date(a.date);
+  //     const dateB = new Date(b.date);
+  //     return newOrder === "ascending" ? dateA - dateB : dateB - dateA;
+  //   });
+  //   setAllNews(sortedSelected);
+  // };
 
   const buttonArchive = async (id) => {
     try {
@@ -140,23 +140,23 @@ const HomePage = ({ type }) => {
         <>
           <NavBar />
           <div className="d-flex justify-content-end">
-            <select
+            {/* <select
               defaultValue="descending"
               onChange={(event) => handleSortNewstOldest(event.target.value)}
               className="form-select w-auto my-3 d-flex justify-content-end me-5 my-1 py-0"
             >
               <option value="descending">Newest first</option>
               <option value="ascending">Oldest first</option>
-            </select>
+            </select> */}
           </div>
           <NewsList
             allNewsList={allNewsList}
             confirmArchive={confirmArchive}
             confirmRemove={confirmRemove}
           />
+          <Footer />
         </>
       )}
-      <Footer />
     </div>
   );
 };
