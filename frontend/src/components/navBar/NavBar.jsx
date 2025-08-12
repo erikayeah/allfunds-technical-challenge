@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -9,7 +9,9 @@ const NavBar = () => {
   return (
     <>
       <Navbar expand="lg" className={style.container}>
-        <img src={logo} className={style.logo} />
+        <Link to="/news">
+          <img src={logo} className={style.logo} />
+        </Link>
 
         <Container>
           <Navbar.Brand></Navbar.Brand>
