@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Swal from "sweetalert2";
-import Loading from "../components/loading/Loading";
-import NavBar from "../components/navBar/NavBar";
-import NewsList from "../components/newsList/NewsList";
+import Loading from "../../components/loading/Loading";
+import Footer from "../../components/footer/Footer";
+import NavBar from "../../components/navBar/NavBar";
+import NewsList from "../../components/newsList/NewsList";
 import axios from "axios";
 
-const Home = () => {
+const HomePage = ({ type }) => {
   const API_URL = "http://localhost:5100/news";
 
   const [loading, setLoading] = useState(true);
@@ -15,12 +16,19 @@ const Home = () => {
   const getAllNews = async () => {
     try {
       const response = await axios.get(`${API_URL}/`);
-      const filteredNews = response.data.filter((news) => !news.archiveDate);
 
-      const sortedNews = filteredNews.sort(
-        (a, b) => new Date(b.date) - new Date(a.date)
-      );
-      setAllNews(sortedNews);
+      const filteredAndSortedNews = response.data
+        .filter((news) =>
+          type === "active" ? !news.archiveDate : news.archiveDate
+        )
+        .sort((a, b) =>
+          type === "active"
+            ? new Date(b.date) - new Date(a.date)
+            : new Date(b.archiveDate) - new Date(a.archiveDate)
+        );
+
+      setAllNews(filteredAndSortedNews);
+
       if (loading) {
         setLoading(false);
       }
@@ -28,6 +36,15 @@ const Home = () => {
       console.error("Error", error);
     }
   };
+
+  // const handleSortNewstOldest = (newOrder) => {
+  //   const sortedSelected = [...allNewsList].sort((a, b) => {
+  //     const dateA = new Date(a.date);
+  //     const dateB = new Date(b.date);
+  //     return newOrder === "ascending" ? dateA - dateB : dateB - dateA;
+  //   });
+  //   setAllNews(sortedSelected);
+  // };
 
   const buttonArchive = async (id) => {
     try {
@@ -69,13 +86,42 @@ const Home = () => {
     });
   };
 
-  const handleSortNewstOldest = (newOrder) => {
-    const sorted = [...allNewsList].sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-      return newOrder === "ascending" ? dateA - dateB : dateB - dateA;
+  const buttonRemove = async (id, date) => {
+    try {
+      await axios.delete(`${API_URL}/remove/${id}`);
+      getAllNews();
+    } catch (error) {
+      console.error("Error archiving news", error);
+    }
+  };
+
+  const confirmRemove = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, remove it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          buttonRemove(id);
+          Swal.fire({
+            title: "Archived!",
+            text: "News has been removed.",
+            icon: "success",
+          });
+        } catch (error) {
+          Swal.fire({
+            title: "Error",
+            text: "Could not remove.",
+            icon: "error",
+          });
+        }
+      }
     });
-    setAllNews(sorted);
   };
 
   useEffect(() => {
@@ -84,7 +130,7 @@ const Home = () => {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [type]);
 
   return (
     <div>
@@ -94,19 +140,25 @@ const Home = () => {
         <>
           <NavBar />
           <div className="d-flex justify-content-end">
-            <select
+            {/* <select
+              defaultValue="descending"
               onChange={(event) => handleSortNewstOldest(event.target.value)}
               className="form-select w-auto my-3 d-flex justify-content-end me-5 my-1 py-0"
             >
               <option value="descending">Newest first</option>
               <option value="ascending">Oldest first</option>
-            </select>
+            </select> */}
           </div>
-          <NewsList allNewsList={allNewsList} confirmArchive={confirmArchive} />
+          <NewsList
+            allNewsList={allNewsList}
+            confirmArchive={confirmArchive}
+            confirmRemove={confirmRemove}
+          />
+          <Footer />
         </>
       )}
     </div>
   );
 };
 
-export default Home;
+export default HomePage;

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -9,21 +9,34 @@ const NavBar = () => {
   return (
     <>
       <Navbar expand="lg" className={style.container}>
+        <img src={logo} className={style.logo} />
+
         <Container>
-          <Navbar.Brand>
-            <a href="https://allfunds.com/es/contact/" target="_blank">
-              <img src={logo} className={style.logo} />
-            </a>
-          </Navbar.Brand>
+          <Navbar.Brand></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link className={style.button} as={Link} to="/news">
+              <NavLink
+                to="/news"
+                className={({ isActive }) =>
+                  isActive
+                    ? "btn btn-dark active ms-3"
+                    : "btn btn-outline-dark ms-3"
+                }
+              >
                 News
-              </Nav.Link>
-              <Nav.Link className={style.button} as={Link} to="/archived">
+              </NavLink>
+
+              <NavLink
+                to="/archived"
+                className={({ isActive }) =>
+                  isActive
+                    ? "btn btn-dark active ms-3"
+                    : "btn btn-outline-dark ms-3"
+                }
+              >
                 Archived News
-              </Nav.Link>
+              </NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>

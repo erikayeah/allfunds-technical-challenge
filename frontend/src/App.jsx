@@ -1,6 +1,5 @@
 import "./App.css";
-import Home from "./views/Home";
-import ArchivedNews from "./views/ArchivedNews";
+import HomePage from "./views/homePage/HomePage";
 import Landing from "./views/landing/Landing";
 
 import { Routes, Route } from "react-router-dom";
@@ -10,8 +9,8 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/news" element={<Home />} />
-        <Route path="/archived" element={<ArchivedNews />} />
+        <Route path="/news" element={<HomePage type="active" />} />
+        <Route path="/archived" element={<HomePage type="archived" />} />
       </Routes>
     </>
   );

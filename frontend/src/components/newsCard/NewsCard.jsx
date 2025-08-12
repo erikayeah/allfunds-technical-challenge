@@ -5,6 +5,9 @@ import style from "./NewsCard.module.css";
 const NewsCard = ({ news, confirmArchive, confirmRemove }) => {
   const { title, description, date, content, author, archiveDate, _id } = news;
   const dateFormatted = new Date(date).toLocaleDateString("en-GB");
+  const archiveDateFormatted = new Date(archiveDate).toLocaleDateString(
+    "en-GB"
+  );
 
   return (
     <div>
@@ -15,7 +18,9 @@ const NewsCard = ({ news, confirmArchive, confirmRemove }) => {
 
           <Card.Text className={style.content}>{content}</Card.Text>
           <Card.Text className={style.author}>
-            Published by {author} on {dateFormatted}{" "}
+            {!archiveDate
+              ? `Published by ${author} on ${dateFormatted}`
+              : `Author ${author} and archived on ${archiveDateFormatted}`}
           </Card.Text>
         </Card.Body>
         <Card.Body className={style.buttonContainer}>

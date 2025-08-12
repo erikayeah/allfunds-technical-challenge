@@ -6,15 +6,23 @@
   text-align: center;
 }
 
-.button{
-  background-color: rgb(255, 255, 255);  
-  /* border-radius: 20px;      
-  border: 1px solid #000f2a;  */
-  padding: 5px 15px;
-  cursor: pointer;
-  margin: 5px;
-  font-size: 20px;
-  
+.button {
+  background-color: #ffffff; 
+  color: #1b345b  !important; 
+  padding: 10px 20px; 
+  margin-left: 20px;
+  border-radius: 20px; 
+  transition: background-color 0.5s ease; 
+}
+
+.button:hover {
+  background-color: #1b345b; 
+  color: #ffffff  !important; 
+}
+
+.button.active {
+  background-color: #1b345b;
+  color: #ffffff;
 }
 
 .logo{
