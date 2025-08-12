@@ -7,6 +7,11 @@ class NewsModel {
     return await news.insertOne(newsItem);
   }
 
+  async createMany(newsList) {
+    const news = dbClient.db.collection("news");
+    return await news.insertMany(newsList);
+  }
+
   async getAll() {
     const news = dbClient.db.collection("news");
     return await news.find({}).toArray();
