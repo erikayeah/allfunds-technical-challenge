@@ -23,9 +23,12 @@ const HomePage = ({ type }) => {
           ? response.data.filter((news) => !news.archiveDate)
           : response.data.filter((news) => news.archiveDate);
 
-      const sortedNews = filteredNews.sort(
-        (a, b) => new Date(b.date) - new Date(a.date)
-      );
+      const sortedNews =
+        type === "active"
+          ? filteredNews.sort((a, b) => new Date(b.date) - new Date(a.date))
+          : filteredNews.sort(
+              (a, b) => new Date(b.archiveDate) - new Date(a.archiveDate)
+            );
       setAllNews(sortedNews);
       if (loading) {
         setLoading(false);
