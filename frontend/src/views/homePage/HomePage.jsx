@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Swal from "sweetalert2";
-import Loading from "../components/loading/Loading";
-import Footer from "../components/footer/Footer";
-import NavBar from "../components/navBar/NavBar";
-import NewsList from "../components/newsList/NewsList";
+import Loading from "../../components/loading/Loading";
+import Footer from "../../components/footer/Footer";
+import NavBar from "../../components/navBar/NavBar";
+import NewsList from "../../components/newsList/NewsList";
 import axios from "axios";
 
 const HomePage = ({ type }) => {
