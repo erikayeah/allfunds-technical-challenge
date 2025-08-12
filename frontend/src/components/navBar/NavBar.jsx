@@ -9,9 +9,8 @@ const NavBar = () => {
   return (
     <>
       <Navbar expand="lg" className={style.container}>
-        <a href="https://allfunds.com/es/contact/" target="_blank">
-          <img src={logo} className={style.logo} />
-        </a>
+        <img src={logo} className={style.logo} />
+
         <Container>
           <Navbar.Brand></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
