@@ -10,7 +10,6 @@ import axios from "axios";
 
 const HomePage = ({ type }) => {
   const API_URL = `${import.meta.env.VITE_BACKEND_PORT}/news`;
-  console.log("BACKEND URL:", API_URL);
 
   const [loading, setLoading] = useState(true);
   const [allNewsList, setAllNewsList] = useState([]);
@@ -133,9 +132,7 @@ const HomePage = ({ type }) => {
   useEffect(() => {
     const socket = io(import.meta.env.VITE_BACKEND_PORT);
 
-    socket.on("connect", () => {
-      console.log(" connected to backend", socket.id);
-    });
+    socket.on("connect", () => {});
 
     socket.on("insertOne", (news) => {
       const shouldInclude =
@@ -160,32 +157,30 @@ const HomePage = ({ type }) => {
     };
   }, [type]);
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div>
-      {loading ? (
-        <Loading />
-      ) : (
-        <>
-          <NavBar />
-          <div className="d-flex justify-content-end">
-            <select
-              defaultValue="descending"
-              onChange={(event) => handleSortNewstOldest(event.target.value)}
-              className="form-select w-auto my-3 d-flex justify-content-end me-5 my-1 py-0"
-            >
-              <option value="descending">Newest first</option>
-              <option value="ascending">Oldest first</option>
-            </select>
-          </div>
+      <NavBar />
+      <div className="d-flex justify-content-end">
+        <select
+          defaultValue="descending"
+          onChange={(event) => handleSortNewstOldest(event.target.value)}
+          className="form-select w-auto my-3 d-flex justify-content-end me-5 my-1 py-0"
+        >
+          <option value="descending">Newest first</option>
+          <option value="ascending">Oldest first</option>
+        </select>
+      </div>
 
-          <NewsList
-            allNewsList={allNewsList}
-            confirmArchive={confirmArchive}
-            confirmRemove={confirmRemove}
-          />
-          <Footer />
-        </>
-      )}
+      <NewsList
+        allNewsList={allNewsList}
+        confirmArchive={confirmArchive}
+        confirmRemove={confirmRemove}
+      />
+      <Footer />
     </div>
   );
 };

@@ -6,7 +6,7 @@ import routesNews from "./routes/routes.js";
 import bodyParser from "body-parser";
 import cors from "cors";
 
-const PORT = 5100;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 const server = createServer(app);
