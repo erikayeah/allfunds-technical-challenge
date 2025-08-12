@@ -9,7 +9,6 @@ import axios from "axios";
 
 const HomePage = ({ type }) => {
   const API_URL = "http://localhost:5100/news";
-  console.log("type,", type);
 
   const [loading, setLoading] = useState(true);
   const [allNewsList, setAllNews] = useState([]);
