@@ -17,24 +17,33 @@ const HomePage = ({ type }) => {
     try {
       const response = await axios.get(`${API_URL}/`);
 
-      const filteredNews =
-        type === "active"
-          ? response.data.filter((news) => !news.archiveDate)
-          : response.data.filter((news) => news.archiveDate);
+      const filteredAndSortedNews = response.data
+        .filter((news) =>
+          type === "active" ? !news.archiveDate : news.archiveDate
+        )
+        .sort((a, b) =>
+          type === "active"
+            ? new Date(b.date) - new Date(a.date)
+            : new Date(b.archiveDate) - new Date(a.archiveDate)
+        );
 
-      const sortedNews =
-        type === "active"
-          ? filteredNews.sort((a, b) => new Date(b.date) - new Date(a.date))
-          : filteredNews.sort(
-              (a, b) => new Date(b.archiveDate) - new Date(a.archiveDate)
-            );
-      setAllNews(sortedNews);
+      setAllNews(filteredAndSortedNews);
+
       if (loading) {
         setLoading(false);
       }
     } catch (error) {
       console.error("Error", error);
     }
+  };
+
+  const handleSortNewstOldest = (newOrder) => {
+    const sortedSelected = [...allNewsList].sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return newOrder === "ascending" ? dateA - dateB : dateB - dateA;
+    });
+    setAllNews(sortedSelected);
   };
 
   const buttonArchive = async (id) => {
@@ -75,15 +84,6 @@ const HomePage = ({ type }) => {
         }
       }
     });
-  };
-
-  const handleSortNewstOldest = (newOrder) => {
-    const sorted = [...allNewsList].sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-      return newOrder === "ascending" ? dateA - dateB : dateB - dateA;
-    });
-    setAllNews(sorted);
   };
 
   const buttonRemove = async (id, date) => {
