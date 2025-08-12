@@ -1,12 +1,22 @@
-import express from "express";
 import "dotenv/config";
+import express from "express";
+import { createServer } from "http";
+import { Server as SocketServer } from "socket.io";
 import routesNews from "./routes/routes.js";
 import bodyParser from "body-parser";
 import cors from "cors";
 
+const PORT = 5100;
+
 const app = express();
-const { FRONTEND_ORIGIN } = process.env;
-//Middlewares
+const server = createServer(app);
+
+export const io = new SocketServer(server, {
+  cors: {
+    origin: "*",
+  },
+});
+
 app.use(
   cors({
     origin: true,
@@ -16,17 +26,11 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use("/news", routesNews);
 
-app.get("/", (req, res) => {
-  res.send("Hello Allfunds!");
-});
-
 try {
-  const port = process.env.PORT || 3000;
-  app.listen(port, () => {
-    console.log(`News app listening on port ${port}`);
+  server.listen(PORT, () => {
+    console.log(`News app listening on port ${PORT}`);
   });
 } catch (error) {
   console.log(error);

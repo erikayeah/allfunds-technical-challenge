@@ -9,7 +9,7 @@ const updateNewsByID = async (req, res) => {
     }
     const data = await newsModel.updateByID(id, req.body);
 
-    res.status(201).json(data);
+    res.status(200).json(data);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
