@@ -1,12 +1,12 @@
 # allfunds-technical-challenge
 # News App
 
-**Client:** React, Bootstrap
-**Server:** Node, Express, MongoDB
+**Client:** React, Bootstrap **Server:** Node, Express, MongoDB
 
 Welcome!
-This is a news management app with a frontend and backend.
-Follow these steps to get the application running and start playing with it.
+
+This is a news management app.
+Follow these steps to run the application locally.
 
 ## Frontend Setup
 
@@ -28,17 +28,19 @@ npm run dev
 
 ---
 
+### Description
+
 In this project, you will be able to see active news in the **News** view, sort them by creation date, and archive them.
 
 Then, in the **Archived News** view, you will be able to see previously archived news, sort them by archive date, and then remove them from the app.
 
-The news are stored and retrieved from a news database in **MongoDB Atlas**.
+The news is stored and retrieved from a news database in **MongoDB Atlas**.
 
 ---
 
-### How to POST news
+### How to POST a news item
 
-Send a POST request to: http://localhost:PORT/news You can use this endpoint with Thunder Client, Postman, or any other API testing tool.
+Send a POST request to: `http://localhost:PORT/news` You can test this endpoint with Thunder Client, Postman, or any other API testing tool.
 Include the following JSON object in the request body:
 
 ```json
@@ -51,10 +53,10 @@ Include the following JSON object in the request body:
 ```
 > **Note:** The date, which is also required, will be automatically added by the `createNews` function when the data is sent.
 
-### How to POST multiple news
+### How to POST multiple news items
 
-Send a POST request to: http://localhost:PORT/news/many You can use this endpoint with Thunder Client, Postman, or any other API testing tool.
-Include the following JSON object in the request body:
+Send a POST request to: `http://localhost:PORT/news/many` You can test this endpoint with Thunder Client, Postman, or any other API testing tool.
+Include the following JSON array in the request body:
 
 ```json
 [
@@ -92,4 +94,5 @@ Include the following JSON object in the request body:
 ---
 
 ## Author
+
 Erika Judith Fogar
