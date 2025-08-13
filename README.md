@@ -57,12 +57,26 @@ Send a POST request to: http://localhost:PORT/news/many You can use this endpoin
 Include the following JSON object in the request body:
 
 ```json
+[
+{
+  "title": "string",
+  "description": "string",
+  "content": "string",
+  "author": "string"
+},
+{
+  "title": "string",
+  "description": "string",
+  "content": "string",
+  "author": "string"
+},
 {
   "title": "string",
   "description": "string",
   "content": "string",
   "author": "string"
 }
+]
 ```
 > **Note:** The date, which is also required, will be automatically added to each news object using the `createManyNews` function when the data is sent.
 
